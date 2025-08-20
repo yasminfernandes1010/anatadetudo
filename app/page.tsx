@@ -33,6 +33,7 @@ export default function ToyStorePage() {
   const [showCart, setShowCart] = useState(false)
   const [cartItems, setCartItems] = useState<any[]>([])
   const [displayCep, setDisplayCep] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -132,7 +133,9 @@ export default function ToyStorePage() {
               size="sm"
               onClick={() => setShowCepPopup(false)}
               className="absolute top-4 right-4 text-white hover:bg-white/20 rounded-full p-2"
-            ></Button>
+            >
+              <X className="w-4 h-4" />
+            </Button>
 
             <div className="absolute bottom-28 left-6 right-6 space-y-4">
               <div className="relative">
@@ -319,8 +322,8 @@ export default function ToyStorePage() {
           <div className="flex items-center gap-4">
             <img src="/rihappy-logo.png" alt="RiHappy" className="h-8 w-auto" />
             {displayCep && (
-              <div className="bg-yellow-300 border-2 border-yellow-600 text-gray-800 px-4 py-2 rounded-full text-sm font-bold">
-                ⚡ Entregar em: {displayCep}
+            <span className="font-semibold text-gray-800">3 a 5 anos</span>
+            <span className="text-gray-600 ml-auto">3 a 5 anos</span>
               </div>
             )}
             <div className="hidden md:flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full text-sm animate-pulse">
@@ -335,7 +338,7 @@ export default function ToyStorePage() {
 
           <div className="flex items-center gap-3">
             <span className="text-sm">
-              {displayUserName ? `Olá, ${displayUserName} seja bem vindo!` : "Olá, acesse sua conta"}
+              {displayUserName ? `Olá, ${displayUserName}! Seja bem-vindo!` : "Olá, acesse sua conta"}
             </span>
             <Button variant="ghost" size="sm" className="text-gray-800 hover:bg-yellow-300">
               <Heart className="w-5 h-5" />
@@ -382,7 +385,7 @@ export default function ToyStorePage() {
               <div className="flex items-center gap-4 mt-6">
                 <span className="text-white text-2xl">de</span>
                 <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-full text-4xl font-bold shadow-lg">
-                  3 a 5
+                  3 - 5
                 </div>
                 <span className="text-white text-2xl">Anos</span>
               </div>
@@ -436,7 +439,14 @@ export default function ToyStorePage() {
 
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-3">
-                <Star className="w-8 h-8 text-yellow-600" />
+                <CreditCard className="w-8 h-8 text-yellow-600" />
+              </div>
+              <h4 className="font-semibold text-gray-800 mb-2">Pagamento Seguro</h4>
+              <p className="text-sm text-gray-600">Cartão, PIX ou boleto</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-3">
+                <Star className="w-8 h-8 text-purple-600" />
               </div>
               <h4 className="font-semibold text-gray-800 mb-2">Satisfação Garantida</h4>
               <p className="text-sm text-gray-600">30 dias para troca ou devolução</p>
@@ -466,7 +476,7 @@ export default function ToyStorePage() {
                 <select
                   value={priceRange}
                   onChange={(e) => setPriceRange(e.target.value)}
-                  className="px-3 py-2 border rounded-lg bg-white"
+                  className="w-8 h-8 p-0 hover:bg-green-700 text-white bg-green-600 rounded-full"
                 >
                   <option value="all">Todos os preços</option>
                   <option value="0-50">Até R$ 50</option>
@@ -496,7 +506,7 @@ export default function ToyStorePage() {
       </section>
 
       {/* Products Section */}
-      <section id="products-section" className="py-12 px-6">
+      <section className="py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
             <h4 className="text-3xl font-bold text-gray-800 mb-2">Brinquedos em Promoção</h4>
@@ -529,7 +539,7 @@ export default function ToyStorePage() {
             <div className="text-center md:text-left">
               <img src="/rihappy-logo-colorida.svg" alt="RiHappy" className="h-16 w-auto mb-4 mx-auto md:mx-0" />
               <p className="text-gray-200 mb-4 text-base font-medium">
-                Os melhores brinquedos para o desenvolvimento e diversão das crianças
+                Os melhores brinquedos para o desenvolvimento e diversão das crianças.
               </p>
               <div className="flex items-center justify-center md:justify-start gap-2 text-green-400 bg-green-900/30 rounded-full px-4 py-2">
                 <Shield className="w-5 h-5" />
@@ -625,7 +635,7 @@ export default function ToyStorePage() {
 
           <div className="text-center text-sm text-gray-300 bg-white/5 rounded-lg p-4">
             <p className="font-medium">© 2024 RiHappy. Todos os direitos reservados.</p>
-            <p className="mt-2 text-xs">Fazendo a infância mais feliz desde 1956</p>
+            <p className="mt-2 text-xs">Fazendo a infância mais feliz desde 1956.</p>
           </div>
         </div>
       </footer>
@@ -660,7 +670,7 @@ function ProductCard({ product, onAddToCart }: { product: any; onAddToCart: (qua
 
         {product.badge && (
           <Badge className="absolute top-3 right-12 z-10 bg-red-500 text-white text-xs px-2 py-1 rounded animate-pulse">
-            -35%
+            -70%
           </Badge>
         )}
 
@@ -707,7 +717,7 @@ function ProductCard({ product, onAddToCart }: { product: any; onAddToCart: (qua
           </div>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-2xl font-bold text-green-600">R$ {product.salePrice}</span>
-            <Badge className="bg-red-500 text-white text-xs px-2 py-1 rounded">-35%</Badge>
+            <Badge className="bg-red-500 text-white text-xs px-2 py-1 rounded">-70%</Badge>
           </div>
           <span className="text-sm text-gray-600">
             ou 2x R$ {(Number.parseFloat(product.salePrice.replace(",", ".")) / 2).toFixed(2).replace(".", ",")} sem
@@ -765,7 +775,7 @@ function getAllProducts() {
     {
       id: 101,
       name: "Boneca Baby Alive - Misturinha Sabor Tropical - E6944 - Hasbro",
-      image: "/baby-alive-star-besties.png",
+      image: "/baby-alive-papinha.png",
       originalPrice: "299,99",
       salePrice: "89,99",
       rating: 5,
@@ -774,7 +784,7 @@ function getAllProducts() {
     {
       id: 102,
       name: "Laptop Infantil - Cute Tech - Hello Kitty - Bilíngue - Candide",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/laptop-barbie.png",
       originalPrice: "159,99",
       salePrice: "47,99",
       rating: 4,
@@ -792,7 +802,7 @@ function getAllProducts() {
     {
       id: 104,
       name: "Boneca Bebê - Sapekinha - Faz Xixi - Vestido Sortido - Milk",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/baby-alive-swimmer.png",
       originalPrice: "69,99",
       salePrice: "20,99",
       rating: 4,
@@ -801,7 +811,7 @@ function getAllProducts() {
     {
       id: 105,
       name: "Boneca Bebê - Baby Alive - Star Besties - Stellar Skylar - Hasbro",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/baby-alive-star-besties.png",
       originalPrice: "199,99",
       salePrice: "59,99",
       rating: 5,
@@ -900,7 +910,7 @@ function getAllProducts() {
     {
       id: 116,
       name: "Boneca - Gabby's Dollhouse - Gabby Girl - Sunny",
-      image: "/placeholder.svg?height=400&width=400",
+     image: "/musical-gabbys-dollhouse.png",
       originalPrice: "249,99",
       salePrice: "74,99",
       rating: 5,
@@ -1018,7 +1028,7 @@ function getAllProducts() {
     {
       id: 210,
       name: "Boneco de Vinil - José Totoy - Novabrink",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/boneco-enaldinho.png",
       originalPrice: "149,99",
       salePrice: "44,99",
       rating: 4,
@@ -1036,7 +1046,7 @@ function getAllProducts() {
     {
       id: 212,
       name: "Boneco Articulado - Marvel - Spidey And His Amazing Friends",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/boneco-spidey-marvel.png",
       originalPrice: "79,99",
       salePrice: "23,99",
       rating: 5,
@@ -1091,7 +1101,7 @@ function getAllProducts() {
     {
       id: 306,
       name: "Conjunto de Pintura E Acessórios - Patrulha Canina - 04 Telas - Nig",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/pintura-patrulha-canina-chase.png",
       originalPrice: "109,99",
       salePrice: "32,99",
       rating: 4,
@@ -1100,7 +1110,7 @@ function getAllProducts() {
     {
       id: 307,
       name: "Boneca Bebê com Acessórios - Baby Alive - Bella - Hora da",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/baby-alive-medica.png",
       originalPrice: "399,99",
       salePrice: "119,99",
       rating: 5,
@@ -1109,7 +1119,7 @@ function getAllProducts() {
     {
       id: 308,
       name: "Conjunto de Carrinho e Figura - Patrulha Canina - Caminhão de",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/carrinho-patrulha-canina.png",
       originalPrice: "159,99",
       salePrice: "47,99",
       rating: 5,
